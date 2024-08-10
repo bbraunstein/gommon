@@ -9,6 +9,24 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
+type (
+	Logger struct {
+		level uint32
+	}
+
+	Lvl uint8
+)
+
+const (
+	DEBUG Lvl = iota + 1
+	INFO
+	WARN
+	ERROR
+	DPANIC
+	PANIC
+	FATAL
+)
+
 var level zapcore.Level
 
 func init() {
@@ -40,6 +58,14 @@ func init() {
 	default:
 		level = zap.InfoLevel
 	}
+}
+
+func Neww() (l *Logger) {
+	l = &Logger{
+		level: uint32(INFO),
+	}
+	
+	return
 }
 
 // When performance and type safety are critical, use the `New`. It's even faster than
